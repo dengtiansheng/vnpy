@@ -423,6 +423,9 @@ class MarketMonitor(BasicMonitor):
         
         # 初始化表格
         self.initTable()
+
+        #设置大小适配
+        self.resizeColumnsToContents()
         
         # 注册事件监听
         self.registerEvent()
@@ -446,6 +449,7 @@ class LogMonitor(BasicMonitor):
         self.setEventType(EVENT_LOG)
         self.setFont(BASIC_FONT)        
         self.initTable()
+        self.resizeColumnsToContents()
         self.registerEvent()
 
 
@@ -468,6 +472,7 @@ class ErrorMonitor(BasicMonitor):
         self.setEventType(EVENT_ERROR)
         self.setFont(BASIC_FONT)
         self.initTable()
+        self.resizeColumnsToContents()
         self.registerEvent()
 
 
@@ -496,7 +501,9 @@ class TradeMonitor(BasicMonitor):
         self.setEventType(EVENT_TRADE)
         self.setFont(BASIC_FONT)
         self.initTable()
+        self.resizeColumnsToContents()
         self.registerEvent()
+
 
 
 ########################################################################
@@ -533,7 +540,9 @@ class OrderMonitor(BasicMonitor):
         self.setSaveData(True)
         
         self.initTable()
+        self.resizeColumnsToContents()
         self.registerEvent()
+
         
         self.connectSignal()
         
@@ -582,6 +591,7 @@ class PositionMonitor(BasicMonitor):
         self.setSaveData(True)
         
         self.initTable()
+        self.resizeColumnsToContents()
         self.registerEvent()
         
         
@@ -610,6 +620,7 @@ class AccountMonitor(BasicMonitor):
         self.setEventType(EVENT_ACCOUNT)
         self.setFont(BASIC_FONT)
         self.initTable()
+        self.resizeColumnsToContents()
         self.registerEvent()
 
 
@@ -676,7 +687,7 @@ class TradingWidget(QtGui.QFrame):
     def initUi(self):
         """初始化界面"""
         self.setWindowTitle(u'交易')
-        self.setMaximumWidth(400)
+        self.setMaximumWidth(600)
         self.setFrameShape(self.Box)    # 设置边框
         self.setLineWidth(1)           
 
@@ -1063,17 +1074,22 @@ class ContractMonitor(BasicMonitor):
         #d['underlyingSymbol'] = {'chinese':u'期权标的物', 'cellType':BasicCell}
         #d['optionType'] = {'chinese':u'期权类型', 'cellType':BasicCell}     
         self.setHeaderDict(d)
-        
+        self.resizeColumnsToContents()
         self.initUi()
         
     #----------------------------------------------------------------------
     def initUi(self):
         """初始化界面"""
         self.setWindowTitle(u'合约查询')
-        self.setMinimumSize(800, 800)
+        self.setMinimumSize(1200, 1200)
         self.setFont(BASIC_FONT)
         self.initTable()
         self.addMenuAction()
+        #self.columnWidth(100)
+        self.setAlternatingRowColors(True)
+        #无用，设置不了 self.setColumnWidth(1,100)
+        self.resizeColumnsToContents() #设置宽度为内容大小
+
     
     #----------------------------------------------------------------------
     def showAllContracts(self):
